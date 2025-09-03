@@ -140,7 +140,9 @@ export function RejectedResults() {
                           <User className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg">{result.studentName}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {result.studentName}
+                          </CardTitle>
                           <CardDescription>{result.studentId}</CardDescription>
                         </div>
                       </div>
@@ -152,7 +154,9 @@ export function RejectedResults() {
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Course</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Course
+                        </p>
                         <p className="font-semibold text-gray-900 dark:text-white">
                           {result.courseCode}
                         </p>
@@ -161,17 +165,25 @@ export function RejectedResults() {
                         </p>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Score & Grade</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Score & Grade
+                        </p>
                         <p className="font-semibold text-gray-900 dark:text-white">
                           {result.score} ({result.grade})
                         </p>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Semester</p>
-                        <p className="text-gray-900 dark:text-white">{result.semester}</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Semester
+                        </p>
+                        <p className="text-gray-900 dark:text-white">
+                          {result.semester}
+                        </p>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Rejected By</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Rejected By
+                        </p>
                         <p className="text-gray-900 dark:text-white text-xs">
                           {rejectionDetails.rejectedBy}
                         </p>
@@ -191,38 +203,60 @@ export function RejectedResults() {
                       </p>
                       {rejectionDetails.rejectedAt && (
                         <p className="text-xs text-red-600 dark:text-red-400">
-                          Rejected on {format(new Date(rejectionDetails.rejectedAt), 'MMM dd, yyyy \'at\' h:mm a')}
+                          Rejected on{" "}
+                          {format(
+                            new Date(rejectionDetails.rejectedAt),
+                            "MMM dd, yyyy 'at' h:mm a"
+                          )}
                         </p>
                       )}
                     </div>
 
                     {/* Approval Chain Progress */}
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Approval Progress:</p>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                        Approval Progress:
+                      </p>
                       <div className="space-y-1">
-                        {result.approvalChain.map((step, stepIndex) => (
-                          <div key={step.id} className="flex items-center space-x-2 text-sm">
-                            <div className={`w-4 h-4 rounded-full ${
-                              step.action === 'approved' ? 'bg-green-500' : 
-                              step.action === 'rejected' ? 'bg-red-500' : 
-                              'bg-gray-300'
-                            }`} />
-                            <span className={`${
-                              step.action === 'rejected' ? 'font-semibold text-red-600 dark:text-red-400' : ''
-                            }`}>
-                              {getRoleDisplayName(step.role)}
-                              {step.action === 'approved' && ' ✓'}
-                              {step.action === 'rejected' && ' ✗ (Rejected here)'}
-                            </span>
-                          </div>
-                        ))}
+                        {result.approvalChain.map(
+                          (
+                            step // stepIndex
+                          ) => (
+                            <div
+                              key={step.id}
+                              className="flex items-center space-x-2 text-sm"
+                            >
+                              <div
+                                className={`w-4 h-4 rounded-full ${
+                                  step.action === "approved"
+                                    ? "bg-green-500"
+                                    : step.action === "rejected"
+                                    ? "bg-red-500"
+                                    : "bg-gray-300"
+                                }`}
+                              />
+                              <span
+                                className={`${
+                                  step.action === "rejected"
+                                    ? "font-semibold text-red-600 dark:text-red-400"
+                                    : ""
+                                }`}
+                              >
+                                {getRoleDisplayName(step.role)}
+                                {step.action === "approved" && " ✓"}
+                                {step.action === "rejected" &&
+                                  " ✗ (Rejected here)"}
+                              </span>
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
 
                     {/* Action Buttons */}
                     <div className="flex space-x-2 pt-4">
-                      {user?.role === 'course_adviser' && (
-                        <Button 
+                      {user?.role === "course_adviser" && (
+                        <Button
                           className="flex-1 bg-blue-600 hover:bg-blue-700"
                           onClick={() => handleResubmit(result)}
                         >
@@ -230,10 +264,12 @@ export function RejectedResults() {
                           Resubmit
                         </Button>
                       )}
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="flex-1"
-                        onClick={() => console.log('Contact reviewer for:', result.id)}
+                        onClick={() =>
+                          console.log("Contact reviewer for:", result.id)
+                        }
                       >
                         <MessageCircle className="w-4 h-4 mr-2" />
                         Contact Reviewer

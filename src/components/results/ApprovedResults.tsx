@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, User, Search, Filter, Download, ExternalLink } from 'lucide-react';
+import { CheckCircle, User, Search, Download, ExternalLink } from 'lucide-react'; // Filter
 import { useResultsStore } from '@/store/resultsStore';
 import { useAuthStore } from '@/store/authStore';
 import { StudentResult } from '@/types';
@@ -186,7 +186,9 @@ export function ApprovedResults() {
                           <User className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg">{result.studentName}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {result.studentName}
+                          </CardTitle>
                           <CardDescription>{result.studentId}</CardDescription>
                         </div>
                       </div>
@@ -196,7 +198,9 @@ export function ApprovedResults() {
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Course</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Course
+                        </p>
                         <p className="font-semibold text-gray-900 dark:text-white">
                           {result.courseCode}
                         </p>
@@ -205,25 +209,37 @@ export function ApprovedResults() {
                         </p>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Score & Grade</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Score & Grade
+                        </p>
                         <p className="font-semibold text-gray-900 dark:text-white">
                           {result.score} ({result.grade})
                         </p>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Semester</p>
-                        <p className="text-gray-900 dark:text-white">{result.semester}</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Semester
+                        </p>
+                        <p className="text-gray-900 dark:text-white">
+                          {result.semester}
+                        </p>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-600 dark:text-gray-300">Approved</p>
+                        <p className="font-medium text-gray-600 dark:text-gray-300">
+                          Approved
+                        </p>
                         <p className="text-gray-900 dark:text-white">
                           {result.approvalChain
-                            .filter(step => step.action === 'approved')
-                            .pop()?.timestamp && 
-                            format(new Date(result.approvalChain
-                              .filter(step => step.action === 'approved')
-                              .pop()!.timestamp!), 'MMM dd, yyyy')
-                          }
+                            .filter((step) => step.action === "approved")
+                            .pop()?.timestamp &&
+                            format(
+                              new Date(
+                                result.approvalChain
+                                  .filter((step) => step.action === "approved")
+                                  .pop()!.timestamp!
+                              ),
+                              "MMM dd, yyyy"
+                            )}
                         </p>
                       </div>
                     </div>
@@ -231,29 +247,41 @@ export function ApprovedResults() {
                     {/* Approval Progress */}
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="font-medium text-gray-600 dark:text-gray-300">Approval Progress</span>
-                        <span className="text-gray-500">{progress.approved}/{progress.total}</span>
+                        <span className="font-medium text-gray-600 dark:text-gray-300">
+                          Approval Progress
+                        </span>
+                        <span className="text-gray-500">
+                          {progress.approved}/{progress.total}
+                        </span>
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        <div 
+                        <div
                           className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all duration-500"
-                          style={{ width: `${(progress.approved / progress.total) * 100}%` }}
+                          style={{
+                            width: `${
+                              (progress.approved / progress.total) * 100
+                            }%`,
+                          }}
                         />
                       </div>
                       <div className="flex flex-wrap gap-1 text-xs">
-                        {result.approvalChain.map((step, stepIndex) => (
-                          <span
-                            key={step.id}
-                            className={`px-2 py-1 rounded ${
-                              step.action === 'approved'
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-                                : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
-                            }`}
-                          >
-                            {getRoleDisplayName(step.role)}
-                            {step.action === 'approved' && ' ✓'}
-                          </span>
-                        ))}
+                        {result.approvalChain.map(
+                          (
+                            step //stepIndex
+                          ) => (
+                            <span
+                              key={step.id}
+                              className={`px-2 py-1 rounded ${
+                                step.action === "approved"
+                                  ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+                                  : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                              }`}
+                            >
+                              {getRoleDisplayName(step.role)}
+                              {step.action === "approved" && " ✓"}
+                            </span>
+                          )
+                        )}
                       </div>
                     </div>
 
@@ -268,8 +296,14 @@ export function ApprovedResults() {
                     {/* Blockchain Transaction */}
                     {result.transactionHash && (
                       <div className="flex items-center justify-between text-xs bg-blue-50 dark:bg-blue-950 p-2 rounded-lg">
-                        <span className="text-gray-600 dark:text-gray-300">Blockchain Record:</span>
-                        <Button variant="link" size="sm" className="p-0 h-auto text-xs">
+                        <span className="text-gray-600 dark:text-gray-300">
+                          Blockchain Record:
+                        </span>
+                        <Button
+                          variant="link"
+                          size="sm"
+                          className="p-0 h-auto text-xs"
+                        >
                           <ExternalLink className="w-3 h-3 mr-1" />
                           View Transaction
                         </Button>

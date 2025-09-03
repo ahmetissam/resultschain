@@ -114,54 +114,60 @@ const ChartTooltipContent = React.forwardRef<
       indicator?: 'line' | 'dot' | 'dashed';
       nameKey?: string;
       labelKey?: string;
+      payload?: any[];
+      label?: string | number;
     }
 >(
-  (
-    {
+  (props, ref) => {
+    const {
       active,
-      payload,
       className,
       indicator = 'dot',
       hideLabel = false,
       hideIndicator = false,
-      label,
       labelFormatter,
       labelClassName,
       formatter,
       color,
       nameKey,
       labelKey,
-    },
-    ref
-  ) => {
+    } = props;
+    // Safe access for payload and label
+    const payload = Array.isArray(props.payload) ? props.payload : [];
+    const label = typeof props.label === 'string' || typeof props.label === 'number' ? props.label : undefined;
     const { config } = useChart();
 
     const tooltipLabel = React.useMemo(() => {
-      if (hideLabel || !payload?.length) {
-        return null;
-      }
+        // Type guards for payload and label
+        const hasPayload = Array.isArray(payload) && payload.length > 0;
+        const hasLabel = typeof label === 'string' || typeof label === 'number';
+        if (hideLabel || !hasPayload) {
+          return null;
+        }
 
-      const [item] = payload;
-      const key = `${labelKey || item.dataKey || item.name || 'value'}`;
-      const itemConfig = getPayloadConfigFromPayload(config, item, key);
-      const value =
-        !labelKey && typeof label === 'string'
-          ? config[label as keyof typeof config]?.label || label
-          : itemConfig?.label;
+        const [item] = payload as any[];
+        const key = `${labelKey || item?.dataKey || item?.name || 'value'}`;
+        const itemConfig = item ? getPayloadConfigFromPayload(config, item, key) : undefined;
+        const value =
+          !labelKey && hasLabel
+            ? config[label as keyof typeof config]?.label || label
+            : itemConfig?.label;
 
-      if (labelFormatter) {
+        if (labelFormatter && hasLabel) {
+          return (
+            <div className={cn('font-medium', labelClassName)}>
+              {labelFormatter(value, payload)}
+            </div>
+          );
+        }
+
+        if (!value) {
+          return null;
+        }
+
         return (
-          <div className={cn('font-medium', labelClassName)}>
-            {labelFormatter(value, payload)}
-          </div>
+          <span className={labelClassName}>{value}</span>
         );
-      }
-
-      if (!value) {
-        return null;
-      }
-
-      return <div className={cn('font-medium', labelClassName)}>{value}</div>;
     }, [
       label,
       labelFormatter,

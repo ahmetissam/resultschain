@@ -24,7 +24,7 @@ export function ApprovalChart({ stats }: ApprovalChartProps) {
     { name: 'Jun', approved: stats.approved + (stats.finalApproved || 0), pending: stats.pendingApproval, rejected: stats.rejected },
   ];
 
-  const COLORS = ['#10b981', '#f59e0b', '#ef4444'];
+  // const COLORS = ['#10b981', '#f59e0b', '#ef4444'];
 
   return (
     <Card>
@@ -53,7 +53,11 @@ export function ApprovalChart({ stats }: ApprovalChartProps) {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={(props) => {
+                    const name = (props as any).name ?? '';
+                    const percent = typeof (props as any).percent === 'number' ? (props as any).percent : 0;
+                    return `${name} ${(percent * 100).toFixed(0)}%`;
+                  }}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"

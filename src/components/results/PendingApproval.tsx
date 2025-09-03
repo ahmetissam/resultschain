@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Clock, CheckCircle, XCircle, User, FileText } from 'lucide-react';
+import { Clock, CheckCircle, XCircle, User } from 'lucide-react'; // FileText
 import { useToast } from '@/hooks/use-toast';
 import { useResultsStore } from '@/store/resultsStore';
 import { useAuthStore } from '@/store/authStore';
@@ -66,10 +66,10 @@ export function PendingApproval() {
     }
   };
 
-  const getNextApprover = (result: StudentResult) => {
-    const nextStep = result.approvalChain.find(step => step.action === 'pending');
-    return nextStep ? nextStep.role.replace('_', ' ').toUpperCase() : 'Final Approval';
-  };
+  // const getNextApprover = (result: StudentResult) => {
+  //   const nextStep = result.approvalChain.find(step => step.action === 'pending');
+  //   return nextStep ? nextStep.role.replace('_', ' ').toUpperCase() : 'Final Approval';
+  // };
 
   const getRoleDisplayName = (role: string) => {
     const roleMap: Record<string, string> = {
@@ -94,9 +94,12 @@ export function PendingApproval() {
             <Clock className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Pending Approval</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              Pending Approval
+            </h1>
             <p className="text-gray-600 dark:text-gray-300">
-              Review and approve results awaiting your decision as {getRoleDisplayName(user!.role)}
+              Review and approve results awaiting your decision as{" "}
+              {getRoleDisplayName(user!.role)}
             </p>
           </div>
         </div>
@@ -137,7 +140,9 @@ export function PendingApproval() {
                         <User className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg">{result.studentName}</CardTitle>
+                        <CardTitle className="text-lg">
+                          {result.studentName}
+                        </CardTitle>
                         <CardDescription>{result.studentId}</CardDescription>
                       </div>
                     </div>
@@ -149,64 +154,99 @@ export function PendingApproval() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="font-medium text-gray-600 dark:text-gray-300">Course</p>
+                      <p className="font-medium text-gray-600 dark:text-gray-300">
+                        Course
+                      </p>
                       <p className="font-semibold text-gray-900 dark:text-white">
                         {result.courseCode} - {result.courseName}
                       </p>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-600 dark:text-gray-300">Score & Grade</p>
+                      <p className="font-medium text-gray-600 dark:text-gray-300">
+                        Score & Grade
+                      </p>
                       <p className="font-semibold text-gray-900 dark:text-white">
                         {result.score} ({result.grade})
                       </p>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-600 dark:text-gray-300">Semester</p>
-                      <p className="text-gray-900 dark:text-white">{result.semester}</p>
+                      <p className="font-medium text-gray-600 dark:text-gray-300">
+                        Semester
+                      </p>
+                      <p className="text-gray-900 dark:text-white">
+                        {result.semester}
+                      </p>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-600 dark:text-gray-300">Submitted</p>
+                      <p className="font-medium text-gray-600 dark:text-gray-300">
+                        Submitted
+                      </p>
                       <p className="text-gray-900 dark:text-white">
-                        {format(new Date(result.submittedAt), 'MMM dd, yyyy')}
+                        {format(new Date(result.submittedAt), "MMM dd, yyyy")}
                       </p>
                     </div>
                   </div>
 
                   {result.comments && (
                     <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Comments:</p>
-                      <p className="text-sm text-gray-900 dark:text-white italic">"{result.comments}"</p>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                        Comments:
+                      </p>
+                      <p className="text-sm text-gray-900 dark:text-white italic">
+                        "{result.comments}"
+                      </p>
                     </div>
                   )}
 
                   {/* Approval Chain */}
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Approval Chain:</p>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                      Approval Chain:
+                    </p>
                     <div className="space-y-1">
-                      {result.approvalChain.map((step, stepIndex) => (
-                        <div key={step.id} className="flex items-center space-x-2 text-sm">
-                          <div className={`w-4 h-4 rounded-full ${
-                            step.action === 'approved' ? 'bg-green-500' : 
-                            step.action === 'rejected' ? 'bg-red-500' : 
-                            step.userId === user!.id ? 'bg-orange-500 animate-pulse' : 'bg-gray-300'
-                          }`} />
-                          <span className={`${
-                            step.userId === user!.id ? 'font-semibold text-orange-600 dark:text-orange-400' : ''
-                          }`}>
-                            {getRoleDisplayName(step.role)}
-                            {step.action === 'approved' && ' ✓'}
-                            {step.action === 'rejected' && ' ✗'}
-                            {step.userId === user!.id && step.action === 'pending' && ' (Your Turn)'}
-                          </span>
-                        </div>
-                      ))}
+                      {result.approvalChain.map(
+                        (
+                          step // stepIndex
+                        ) => (
+                          <div
+                            key={step.id}
+                            className="flex items-center space-x-2 text-sm"
+                          >
+                            <div
+                              className={`w-4 h-4 rounded-full ${
+                                step.action === "approved"
+                                  ? "bg-green-500"
+                                  : step.action === "rejected"
+                                  ? "bg-red-500"
+                                  : step.userId === user!.id
+                                  ? "bg-orange-500 animate-pulse"
+                                  : "bg-gray-300"
+                              }`}
+                            />
+                            <span
+                              className={`${
+                                step.userId === user!.id
+                                  ? "font-semibold text-orange-600 dark:text-orange-400"
+                                  : ""
+                              }`}
+                            >
+                              {getRoleDisplayName(step.role)}
+                              {step.action === "approved" && " ✓"}
+                              {step.action === "rejected" && " ✗"}
+                              {step.userId === user!.id &&
+                                step.action === "pending" &&
+                                " (Your Turn)"}
+                            </span>
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
 
                   <div className="flex space-x-2 pt-4">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button 
+                        <Button
                           className="flex-1 bg-green-600 hover:bg-green-700"
                           onClick={() => setSelectedResult(result)}
                         >
@@ -218,12 +258,16 @@ export function PendingApproval() {
                         <DialogHeader>
                           <DialogTitle>Approve Result</DialogTitle>
                           <DialogDescription>
-                            You are about to approve {selectedResult?.studentName}'s result for {selectedResult?.courseCode}.
+                            You are about to approve{" "}
+                            {selectedResult?.studentName}'s result for{" "}
+                            {selectedResult?.courseCode}.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4">
                           <div>
-                            <Label htmlFor="approveComments">Comments (Optional)</Label>
+                            <Label htmlFor="approveComments">
+                              Comments (Optional)
+                            </Label>
                             <Textarea
                               id="approveComments"
                               value={comments}
@@ -238,17 +282,20 @@ export function PendingApproval() {
                             variant="outline"
                             onClick={() => {
                               setSelectedResult(null);
-                              setComments('');
+                              setComments("");
                             }}
                           >
                             Cancel
                           </Button>
                           <Button
                             className="bg-green-600 hover:bg-green-700"
-                            onClick={() => selectedResult && handleAction(selectedResult, 'approve')}
+                            onClick={() =>
+                              selectedResult &&
+                              handleAction(selectedResult, "approve")
+                            }
                             disabled={isProcessing}
                           >
-                            {isProcessing && actionType === 'approve' ? (
+                            {isProcessing && actionType === "approve" ? (
                               <>
                                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
                                 Processing...
@@ -266,8 +313,8 @@ export function PendingApproval() {
 
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button 
-                          variant="destructive" 
+                        <Button
+                          variant="destructive"
                           className="flex-1"
                           onClick={() => setSelectedResult(result)}
                         >
@@ -279,13 +326,17 @@ export function PendingApproval() {
                         <DialogHeader>
                           <DialogTitle>Reject Result</DialogTitle>
                           <DialogDescription>
-                            You are about to reject {selectedResult?.studentName}'s result for {selectedResult?.courseCode}.
-                            Please provide a reason for rejection.
+                            You are about to reject{" "}
+                            {selectedResult?.studentName}'s result for{" "}
+                            {selectedResult?.courseCode}. Please provide a
+                            reason for rejection.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4">
                           <div>
-                            <Label htmlFor="rejectComments">Reason for Rejection *</Label>
+                            <Label htmlFor="rejectComments">
+                              Reason for Rejection *
+                            </Label>
                             <Textarea
                               id="rejectComments"
                               value={comments}
@@ -301,17 +352,20 @@ export function PendingApproval() {
                             variant="outline"
                             onClick={() => {
                               setSelectedResult(null);
-                              setComments('');
+                              setComments("");
                             }}
                           >
                             Cancel
                           </Button>
                           <Button
                             variant="destructive"
-                            onClick={() => selectedResult && handleAction(selectedResult, 'reject')}
+                            onClick={() =>
+                              selectedResult &&
+                              handleAction(selectedResult, "reject")
+                            }
                             disabled={isProcessing || !comments.trim()}
                           >
-                            {isProcessing && actionType === 'reject' ? (
+                            {isProcessing && actionType === "reject" ? (
                               <>
                                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
                                 Processing...
