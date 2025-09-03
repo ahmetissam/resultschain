@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { StudentResult, UserRole, AuditLog, DashboardStats } from '../types';
+import type { ResultStatus } from '../types';
 
 interface ResultsState {
   results: StudentResult[];
@@ -180,9 +181,9 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
         if (result.id === resultId) {
           const updatedChain = result.approvalChain.map(step => {
             if (step.role === role && step.action === 'pending') {
-              return {
-                ...step,
-                action: 'approved' as const,
+                  return {
+                    ...step,
+                    action: 'approved' as 'approved',
                 timestamp: new Date().toISOString(),
                 comments,
                 transactionHash: `0x${Math.random().toString(16).substr(2, 40)}`,
@@ -190,16 +191,14 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
             }
             return step;
           });
-
           // Determine next approver and status
           const nextStep = updatedChain.find(step => step.action === 'pending');
           const isCompletelyApproved = !nextStep;
-          
           return {
             ...result,
             approvalChain: updatedChain,
             currentApprover: nextStep?.userId,
-            status: isCompletelyApproved ? 'final_approved' : 'approved',
+            status: (isCompletelyApproved ? 'final_approved' : 'approved') as ResultStatus,
             comments,
           };
         }
@@ -228,37 +227,36 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
   },
 
   rejectResult: (resultId, userId, userName, role, comments) => {
-  set(state => {
+    set(state => {
       const updatedResults = state.results.map(result => {
         if (result.id === resultId) {
           const updatedChain = result.approvalChain.map(step => {
             if (step.role === role && step.action === 'pending') {
-              return {
-                ...step,
-                action: 'rejected' as const,
+                  return {
+                    ...step,
+                    action: 'rejected' as 'rejected',
                 timestamp: new Date().toISOString(),
                 comments,
                 transactionHash: `0x${Math.random().toString(16).substr(2, 40)}`,
               };
             }
-            return {
-              ...state,
-              results: updatedResults,
-              auditLogs: [
-                {
-                  id: Date.now().toString(),
-                  action: `Result Rejected by ${role.toUpperCase().replace('_', ' ')}`,
-                  userId,
-                  userName,
-                  role,
-                  resultId,
-                  timestamp: new Date().toISOString(),
-                  transactionHash: `0x${Math.random().toString(16).substr(2, 40)}`,
-                  details: `Rejected result with comments: ${comments || 'No comments'}`,
-                },
-                ...state.auditLogs,
-              ],
-            };
+            return step;
+          });
+          return {
+            ...result,
+            approvalChain: updatedChain,
+            currentApprover: undefined,
+            status: 'rejected',
+            comments,
+          } as StudentResult;
+        }
+        return result;
+      });
+      return {
+        ...state,
+        results: updatedResults,
+        auditLogs: [
+          {
             id: Date.now().toString(),
             action: `Result Rejected by ${role.toUpperCase().replace('_', ' ')}`,
             userId,
@@ -267,7 +265,7 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
             resultId,
             timestamp: new Date().toISOString(),
             transactionHash: `0x${Math.random().toString(16).substr(2, 40)}`,
-            details: `Rejected result with comments: ${comments}`,
+            details: `Rejected result with comments: ${comments || 'No comments'}`,
           },
           ...state.auditLogs,
         ],
