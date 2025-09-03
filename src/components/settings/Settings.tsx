@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Settings as SettingsIcon, User, Bell, Shield, Wallet, Database, Globe } from 'lucide-react';
+import { Settings as SettingsIcon, Bell, Shield, Database, Globe } from 'lucide-react'; // Wallet, User
 import { useToast } from '@/hooks/use-toast';
 // import { useAuthStore } from '@/store/authStore';
 

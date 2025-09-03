@@ -6,36 +6,31 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
+// import { Separator } from '@/components/ui/separator';
+// import { Switch } from '@/components/ui/switch';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   User, 
   Mail, 
   Calendar, 
-  Shield, 
-  Wallet, 
-  ArrowLeft, 
+  // Shield, 
+  // Wallet, 
+  // ArrowLeft, 
   Save, 
   Edit3, 
-  Key,
-  Bell,
+  // Key,
+  // Bell,
   Globe,
   CheckCircle,
-  ExternalLink
+  // ExternalLink
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuthStore } from '@/store/authStore';
 import { useResultsStore } from '@/store/resultsStore';
 import { format } from 'date-fns';
 
-interface ProfilePageProps {
-  onBack: () => void;
-  onLogout: () => void;
-}
-
-export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
-  const { user, logout } = useAuthStore();
+export function ProfilePage() {
+  const { user } = useAuthStore();
   const { getDashboardStats } = useResultsStore();
   const { toast } = useToast();
 
@@ -51,13 +46,13 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
     expertise: 'Computer Science, Data Structures, Algorithms',
   });
 
-  const [preferences, setPreferences] = useState({
-    emailNotifications: true,
-    pushNotifications: false,
-    approvalAlerts: true,
-    weeklyReports: true,
-    autoApproval: false,
-  });
+  // const [preferences, setPreferences] = useState({
+  //   emailNotifications: true,
+  //   pushNotifications: false,
+  //   approvalAlerts: true,
+  //   weeklyReports: true,
+  //   autoApproval: false,
+  // });
 
   const stats = user ? getDashboardStats(user.role, user.id) : null;
 
@@ -113,17 +108,12 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    onLogout();
-  };
-
-  const handleConnectWallet = async () => {
-    toast({
-      title: "Wallet Connection",
-      description: "MetaMask wallet connection will be available in production.",
-    });
-  };
+  // const handleConnectWallet = async () => {
+  //   toast({
+  //     title: "Wallet Connection",
+  //     description: "MetaMask wallet connection will be available in production.",
+  //   });
+  // };
 
   if (!user) return null;
 

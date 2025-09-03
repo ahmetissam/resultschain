@@ -41,7 +41,7 @@ export function DashboardPage({ onLogout }: DashboardPageProps) {
       case 'settings':
         return <Settings />;
       case 'profile':
-        return <ProfilePage onBack={() => setActiveTab('dashboard')} onLogout={onLogout} />;
+        return <ProfilePage />;
       default:
         return <Dashboard />;
     }

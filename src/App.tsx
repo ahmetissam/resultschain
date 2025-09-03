@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { LandingPage } from '@/pages/LandingPage';
 import { AuthPage } from '@/pages/AuthPage';
 import { DashboardPage } from '@/pages/DashboardPage';
-import { ProfilePage } from '@/pages/ProfilePage';
+// import { ProfilePage } from '@/pages/ProfilePage';
 import { useAuthStore } from '@/store/authStore';
 
 type AppState = 'landing' | 'auth' | 'dashboard' | 'profile';
@@ -28,9 +28,9 @@ function App() {
 
   // Remove handleNavigateToProfile, profile navigation now handled in DashboardPage
 
-  const handleBackToDashboard = () => {
-    setCurrentPage('dashboard');
-  };
+  // const handleBackToDashboard = () => {
+  //   setCurrentPage('dashboard');
+  // };
 
   const handleLogout = () => {
     setCurrentPage('landing');

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, User, Lock, Wallet, ArrowLeft } from 'lucide-react';
+import { Shield, User, Lock, ArrowLeft } from 'lucide-react'; // Wallet
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,9 +22,10 @@ export function AuthPage({ onBack, onSuccess }: AuthPageProps) {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState<UserRole>('course_adviser');
-  const [isConnectingWallet, setIsConnectingWallet] = useState(false);
+  // const [isConnectingWallet, setIsConnectingWallet] = useState(false);
   
-  const { login, connectWallet, isLoading } = useAuthStore();
+  // const { login, connectWallet, isLoading } = useAuthStore();
+  const { login, isLoading } = useAuthStore();
   const { toast } = useToast();
 
   const roleOptions = [
@@ -63,28 +64,28 @@ export function AuthPage({ onBack, onSuccess }: AuthPageProps) {
     }
   };
 
-  const handleWalletConnect = async () => {
-    setIsConnectingWallet(true);
+  // const handleWalletConnect = async () => {
+  //   setIsConnectingWallet(true);
     
-    // Simulate wallet connection
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  //   // Simulate wallet connection
+  //   await new Promise(resolve => setTimeout(resolve, 2000));
     
-    const success = await connectWallet();
-    if (success) {
-      toast({
-        title: "Wallet Connected",
-        description: "MetaMask wallet connected successfully for blockchain transactions.",
-      });
-    } else {
-      toast({
-        title: "Wallet Connection Failed",
-        description: "Please ensure MetaMask is installed and try again.",
-        variant: "destructive",
-      });
-    }
+  //   const success = await connectWallet();
+  //   if (success) {
+  //     toast({
+  //       title: "Wallet Connected",
+  //       description: "MetaMask wallet connected successfully for blockchain transactions.",
+  //     });
+  //   } else {
+  //     toast({
+  //       title: "Wallet Connection Failed",
+  //       description: "Please ensure MetaMask is installed and try again.",
+  //       variant: "destructive",
+  //     });
+  //   }
     
-    setIsConnectingWallet(false);
-  };
+  //   setIsConnectingWallet(false);
+  // };
 
   // Demo credentials for each role
   const demoCredentials = [
