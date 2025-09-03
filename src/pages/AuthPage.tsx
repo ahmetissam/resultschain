@@ -89,10 +89,10 @@ export function AuthPage({ onBack, onSuccess }: AuthPageProps) {
   // Demo credentials for each role
   const demoCredentials = [
     { role: 'course_adviser', email: 'adviser@university.edu', name: 'Dr. Sarah Johnson' },
-    { role: 'hod', email: 'hod@university.edu', name: 'Prof. Michael Chen' },
-    { role: 'dean', email: 'dean@university.edu', name: 'Prof. Elizabeth Thompson' },
-    { role: 'dvc_academic', email: 'dvc@university.edu', name: 'Prof. Robert Williams' },
-    { role: 'vice_chancellor', email: 'vc@university.edu', name: 'Prof. Amanda Davis' },
+    // { role: 'hod', email: 'hod@university.edu', name: 'Prof. Michael Chen' },
+    // { role: 'dean', email: 'dean@university.edu', name: 'Prof. Elizabeth Thompson' },
+    // { role: 'dvc_academic', email: 'dvc@university.edu', name: 'Prof. Robert Williams' },
+    // { role: 'vice_chancellor', email: 'vc@university.edu', name: 'Prof. Amanda Davis' },
   ];
 
   const fillDemoCredentials = (demoRole: UserRole) => {
@@ -175,14 +175,17 @@ export function AuthPage({ onBack, onSuccess }: AuthPageProps) {
                     </Badge>
                   </div>
                 ))}
-                <div className="pt-2 text-xs text-gray-500 dark:text-gray-400">
+                {/* <div className="pt-2 text-xs text-gray-500 dark:text-gray-400">
                   Password for all demo accounts: <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">demo123</code>
+                </div> */}
+                <div className="pt-2 text-xs text-gray-500 dark:text-gray-400">
+                  Click here to login as Course Adviser
                 </div>
               </CardContent>
             </Card>
 
             {/* Wallet Connection */}
-            <Card className="mt-6">
+            {/* <Card className="mt-6">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Wallet className="w-5 h-5" />
@@ -211,7 +214,7 @@ export function AuthPage({ onBack, onSuccess }: AuthPageProps) {
                   )}
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
           </motion.div>
 
           {/* Login/Register Form */}

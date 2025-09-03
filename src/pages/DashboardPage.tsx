@@ -45,21 +45,22 @@ export function DashboardPage({ onNavigateToProfile, onLogout }: DashboardPagePr
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 overflow-x-hidden">
       <Header onNavigateToProfile={onNavigateToProfile} onLogout={onLogout} />
-      <div className="flex">
+      <div className="flex justify-center">
         <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-        <main className="flex-1 p-6">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-7xl mx-auto"
-          >
-            {renderContent()}
-          </motion.div>
+        <main className="flex-1 p-6 flex justify-center">
+          <div className="w-[1000px] mx-auto">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {renderContent()}
+            </motion.div>
+          </div>
         </main>
       </div>
     </div>

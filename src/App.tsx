@@ -37,8 +37,8 @@ function App() {
   const handleLogout = () => {
     setCurrentPage('landing');
   };
-  // Auto-redirect to dashboard if already authenticated
-  if (isAuthenticated && currentPage !== 'dashboard') {
+  // Auto-redirect to dashboard only from landing or auth page
+  if (isAuthenticated && (currentPage === 'landing' || currentPage === 'auth')) {
     setCurrentPage('dashboard');
   }
 
