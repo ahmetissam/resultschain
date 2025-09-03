@@ -26,9 +26,7 @@ function App() {
     setCurrentPage('dashboard');
   };
 
-  const handleNavigateToProfile = () => {
-    setCurrentPage('profile');
-  };
+  // Remove handleNavigateToProfile, profile navigation now handled in DashboardPage
 
   const handleBackToDashboard = () => {
     setCurrentPage('dashboard');
@@ -59,14 +57,8 @@ function App() {
           
           {currentPage === 'dashboard' && isAuthenticated && (
             <DashboardPage 
-              onNavigateToProfile={handleNavigateToProfile}
-              onLogout={handleLogout}
-            />
-          )}
-          
-          {currentPage === 'profile' && isAuthenticated && (
-            <ProfilePage 
-              onBack={handleBackToDashboard}
+              onNavigateToProfile={() => {}}
+              onNavigateToSettings={() => {}}
               onLogout={handleLogout}
             />
           )}

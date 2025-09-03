@@ -8,6 +8,7 @@ import {
   Users,
   Activity,
   Settings,
+  User,
   ChevronRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -72,6 +73,12 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       label: 'User Management',
       icon: <Users className="w-5 h-5" />,
       roles: ['admin'],
+    },
+    {
+      id: 'profile',
+      label: 'Profile',
+      icon: <User className="w-5 h-5" />,
+      roles: ['course_adviser', 'hod', 'dean', 'dvc_academic', 'vice_chancellor', 'admin'],
     },
     {
       id: 'settings',

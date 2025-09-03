@@ -12,7 +12,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   User, 
   Mail, 
-  Building, 
   Calendar, 
   Shield, 
   Wallet, 
@@ -22,7 +21,6 @@ import {
   Key,
   Bell,
   Globe,
-  Clock,
   CheckCircle,
   ExternalLink
 } from 'lucide-react';
@@ -56,6 +54,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
   const [preferences, setPreferences] = useState({
     emailNotifications: true,
     pushNotifications: false,
+    approvalAlerts: true,
     weeklyReports: true,
     autoApproval: false,
   });
@@ -130,39 +129,6 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">
-      {/* Header */}
-      <motion.header 
-        className="backdrop-blur-sm bg-white/95 dark:bg-gray-950/95 border-b border-gray-200 dark:border-gray-800"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" onClick={onBack}>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Dashboard
-            </Button>
-            <div className="flex items-center space-x-2">
-              <div className="p-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ResultsChain
-              </span>
-            </div>
-          </div>
-          <Button 
-            variant="destructive" 
-            onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-700"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Logout
-          </Button>
-        </div>
-      </motion.header>
-
       <div className="container mx-auto px-6 py-8">
         {/* Profile Header */}
         <motion.div
@@ -363,7 +329,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
             </Card>
 
             {/* Security Settings */}
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Shield className="w-5 h-5" />
@@ -374,7 +340,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                {/* Wallet Connection */}
+                {/* Wallet Connection 
                 <div className="flex items-center justify-between p-4 bg-orange-50 dark:bg-orange-950 border border-orange-200 dark:border-orange-800 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
@@ -406,7 +372,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
                   </Button>
                 </div>
 
-                {/* Security Options */}
+                {/* Security Options 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -441,67 +407,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
                   </Button>
                 </div>
               </CardContent>
-            </Card>
-
-            {/* Preferences */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Bell className="w-5 h-5" />
-                  <span>Notification Preferences</span>
-                </CardTitle>
-                <CardDescription>
-                  Configure how you receive updates and alerts
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Push Notifications</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Receive browser notifications for important updates
-                    </p>
-                  </div>
-                  <Switch 
-                    checked={preferences.pushNotifications}
-                    onCheckedChange={(checked) => setPreferences(prev => ({ ...prev, pushNotifications: checked }))}
-                  />
-                </div>
-                
-                <Separator />
-                
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Weekly Reports</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Get weekly summaries of your activity and pending items
-                    </p>
-                  </div>
-                  <Switch 
-                    checked={preferences.weeklyReports}
-                    onCheckedChange={(checked) => setPreferences(prev => ({ ...prev, weeklyReports: checked }))}
-                  />
-                </div>
-
-                {(user.role === 'hod' || user.role === 'dean' || user.role === 'dvc_academic' || user.role === 'vice_chancellor') && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">Auto-Approval Alerts</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
-                          Get notified when results are ready for your approval
-                        </p>
-                      </div>
-                      <Switch 
-                        checked={preferences.autoApproval}
-                        onCheckedChange={(checked) => setPreferences(prev => ({ ...prev, autoApproval: checked }))}
-                      />
-                    </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
+            </Card> */}
           </motion.div>
 
           {/* Sidebar Stats & Info */}
@@ -584,7 +490,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
             </Card>
 
             {/* Blockchain Info */}
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Wallet className="w-5 h-5" />
@@ -613,37 +519,7 @@ export function ProfilePage({ onBack, onLogout }: ProfilePageProps) {
                   View on Etherscan
                 </Button>
               </CardContent>
-            </Card>
-
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button variant="outline" className="w-full justify-start">
-                  <Key className="w-4 h-4 mr-2" />
-                  Change Password
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Bell className="w-4 h-4 mr-2" />
-                  Notification Settings
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Globe className="w-4 h-4 mr-2" />
-                  Language & Region
-                </Button>
-                <Separator />
-                <Button 
-                  variant="destructive" 
-                  className="w-full justify-start"
-                  onClick={handleLogout}
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Logout
-                </Button>
-              </CardContent>
-            </Card>
+            </Card> */}
           </motion.div>
         </div>
       </div>

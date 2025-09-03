@@ -67,14 +67,11 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
 
-      login: async (email: string, password: string, role: UserRole) => {
+      login: async (email: string, _password: string, role: UserRole) => {
         set({ isLoading: true });
-        
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
         const user = mockUsers.find(u => u.email === email && u.role === role);
-        
         if (user) {
           set({ 
             user, 

@@ -2,46 +2,38 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Settings as SettingsIcon, User, Bell, Shield, Wallet, Database, Globe } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useAuthStore } from '@/store/authStore';
+// import { useAuthStore } from '@/store/authStore';
 
 export function Settings() {
-  const { user } = useAuthStore();
+  // const { user } = useAuthStore();
   const { toast } = useToast();
   
   const [settings, setSettings] = useState({
-    // Profile Settings
-    name: user?.name || '',
-    email: user?.email || '',
-    department: user?.department || '',
-    
     // Notification Settings
     emailNotifications: true,
     pushNotifications: false,
     approvalAlerts: true,
     weeklyReports: true,
-    
     // Security Settings
     twoFactorAuth: false,
-    sessionTimeout: '30',
-    passwordExpiry: '90',
-    
+    sessionTimeout: "30",
+    passwordExpiry: "90",
     // Blockchain Settings
     autoConnect: true,
-    gasPrice: 'medium',
-    confirmations: '3',
-    
+    gasPrice: "medium",
+    confirmations: "3",
     // System Settings
-    language: 'en',
-    timezone: 'UTC',
-    dateFormat: 'MM/dd/yyyy',
-    theme: 'system',
+    language: "en",
+    timezone: "UTC",
+    dateFormat: "MM/dd/yyyy",
+    theme: "system",
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -92,52 +84,7 @@ export function Settings() {
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Profile Settings */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5" />
-                <span>Profile Settings</span>
-              </CardTitle>
-              <CardDescription>
-                Update your personal information and account details
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  value={settings.name}
-                  onChange={(e) => updateSetting('name', e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={settings.email}
-                  onChange={(e) => updateSetting('email', e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="department">Department</Label>
-                <Input
-                  id="department"
-                  value={settings.department}
-                  onChange={(e) => updateSetting('department', e.target.value)}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6"> 
 
         {/* Notification Settings */}
         <motion.div
@@ -274,7 +221,7 @@ export function Settings() {
         </motion.div>
 
         {/* Blockchain Settings */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -332,7 +279,7 @@ export function Settings() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </motion.div> */}
 
         {/* System Settings */}
         <motion.div

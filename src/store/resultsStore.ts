@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { StudentResult, ApprovalStep, UserRole, AuditLog, DashboardStats } from '../types';
+import { StudentResult, UserRole, AuditLog, DashboardStats } from '../types';
 
 interface ResultsState {
   results: StudentResult[];
@@ -175,7 +175,7 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
   },
 
   approveResult: (resultId, userId, userName, role, comments) => {
-    set(state => {
+  set(state => {
       const updatedResults = state.results.map(result => {
         if (result.id === resultId) {
           const updatedChain = result.approvalChain.map(step => {
@@ -207,6 +207,7 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
       });
 
       return {
+        ...state,
         results: updatedResults,
         auditLogs: [
           {
@@ -227,7 +228,7 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
   },
 
   rejectResult: (resultId, userId, userName, role, comments) => {
-    set(state => {
+  set(state => {
       const updatedResults = state.results.map(result => {
         if (result.id === resultId) {
           const updatedChain = result.approvalChain.map(step => {
@@ -240,23 +241,24 @@ export const useResultsStore = create<ResultsState>((set, get) => ({
                 transactionHash: `0x${Math.random().toString(16).substr(2, 40)}`,
               };
             }
-            return step;
-          });
-
-          return {
-            ...result,
-            approvalChain: updatedChain,
-            status: 'rejected',
-            comments,
-          };
-        }
-        return result;
-      });
-
-      return {
-        results: updatedResults,
-        auditLogs: [
-          {
+            return {
+              ...state,
+              results: updatedResults,
+              auditLogs: [
+                {
+                  id: Date.now().toString(),
+                  action: `Result Rejected by ${role.toUpperCase().replace('_', ' ')}`,
+                  userId,
+                  userName,
+                  role,
+                  resultId,
+                  timestamp: new Date().toISOString(),
+                  transactionHash: `0x${Math.random().toString(16).substr(2, 40)}`,
+                  details: `Rejected result with comments: ${comments || 'No comments'}`,
+                },
+                ...state.auditLogs,
+              ],
+            };
             id: Date.now().toString(),
             action: `Result Rejected by ${role.toUpperCase().replace('_', ' ')}`,
             userId,

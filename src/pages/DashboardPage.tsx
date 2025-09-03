@@ -10,16 +10,17 @@ import { RejectedResults } from '@/components/results/RejectedResults';
 import { AuditLogs } from '@/components/audit/AuditLogs';
 import { UserManagement } from '@/components/admin/UserManagement';
 import { Settings } from '@/components/settings/Settings';
-import { useAuthStore } from '@/store/authStore';
+// import { useAuthStore } from '@/store/authStore';
+import { ProfilePage } from "./ProfilePage";
 
 interface DashboardPageProps {
   onNavigateToProfile: () => void;
+  onNavigateToSettings: () => void;
   onLogout: () => void;
 }
 
-export function DashboardPage({ onNavigateToProfile, onLogout }: DashboardPageProps) {
+export function DashboardPage({ onLogout }: DashboardPageProps) {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const { user } = useAuthStore();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -39,6 +40,8 @@ export function DashboardPage({ onNavigateToProfile, onLogout }: DashboardPagePr
         return <UserManagement />;
       case 'settings':
         return <Settings />;
+      case 'profile':
+        return <ProfilePage onBack={() => setActiveTab('dashboard')} onLogout={onLogout} />;
       default:
         return <Dashboard />;
     }
@@ -46,7 +49,11 @@ export function DashboardPage({ onNavigateToProfile, onLogout }: DashboardPagePr
 
   return (
   <div className="min-h-screen bg-gray-50 dark:bg-gray-900 overflow-x-hidden">
-      <Header onNavigateToProfile={onNavigateToProfile} onLogout={onLogout} />
+      <Header 
+        onNavigateToProfile={() => setActiveTab('profile')}
+        onNavigateToSettings={() => setActiveTab('settings')}
+        onLogout={onLogout} 
+      />
       <div className="flex justify-center">
         <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
         <main className="flex-1 p-6 flex justify-center">

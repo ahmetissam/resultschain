@@ -15,10 +15,11 @@ import { useAuthStore } from '@/store/authStore';
 
 interface HeaderProps {
   onNavigateToProfile: () => void;
+  onNavigateToSettings: () => void;
   onLogout: () => void;
 }
 
-export function Header({ onNavigateToProfile, onLogout }: HeaderProps) {
+export function Header({ onNavigateToProfile, onNavigateToSettings, onLogout }: HeaderProps) {
   const { user, logout } = useAuthStore();
 
   const handleLogout = () => {
@@ -114,7 +115,7 @@ export function Header({ onNavigateToProfile, onLogout }: HeaderProps) {
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={onNavigateToSettings}>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </DropdownMenuItem>
