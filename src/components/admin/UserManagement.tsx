@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, UserPlus, Search, Settings, Shield, Mail, Calendar } from 'lucide-react';
+import { Users, UserPlus, Search, Settings, Shield, Mail } from 'lucide-react'; // Calendar
 import { useToast } from '@/hooks/use-toast';
 import { User, UserRole } from '@/types';
 
@@ -138,14 +138,14 @@ export function UserManagement() {
   const toggleUserStatus = (userId: string) => {
     toast({
       title: "User Status Updated",
-      description: "User status has been successfully updated.",
+      description: `User status has been successfully updated. ${userId}`,
     });
   };
 
   const resetUserPassword = (userId: string) => {
     toast({
       title: "Password Reset",
-      description: "Password reset email has been sent to the user.",
+      description: `Password reset email has been sent to the user. ${userId}`,
     });
   };
 
